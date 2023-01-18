@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 class NumberOfEvents extends Component {
-    state = { noe: 10}
+    state = { noe: 32}
 
     componentDidMount() {
-        this.setState({ noe: this.props.noe || 10 });
+        this.setState({ noe: this.props.noe || 32 });
     }
 
     changeNOE(value) {

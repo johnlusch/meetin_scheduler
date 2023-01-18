@@ -3,6 +3,8 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import { extractLocations, getEvents } from './api';
+import './nprogress.css';
 
 class App extends Component {
   state = {
@@ -10,12 +12,39 @@ class App extends Component {
     locations: [],
     numberOfEvents: 10
   }
+
+  // to make the API call and save the initial data to state
+  componentDidMount() {
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({
+          events, locations : extractLocations(events)
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  updateEvents = (location) => {
+    getEvents().then((events) => {
+      const locationEvents = (location === 'all') ?
+      events :
+      events.filter((event) => event.location === location);
+      this.setState({
+        events: locationEvents
+      });
+    });
+  }
   
   render() {
     return (
       <div className='App'>
-        <CitySearch />
-       <EventList />
+       <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+       <EventList events={this.state.events}/>
        <NumberOfEvents />
       </div>
     );
