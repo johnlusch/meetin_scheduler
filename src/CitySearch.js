@@ -32,7 +32,8 @@ class CitySearch extends Component {
            <div className="CitySearch">
             <input 
               type="text" 
-              className="city" 
+              className="city"
+              placeholder="Seach for a City"
               value={this.state.query}
               onChange={this.handleInputChanged} // to detect whether any textual changes have been made on the input
               onFocus={() => { this.setState({ showSuggestions: true }) }}
