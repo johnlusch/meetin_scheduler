@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { ErrorAlert } from './Alert';
 
 class NumberOfEvents extends Component {
     state = { 
         noe: 32,
-        infoText: ''
+        errorText: ''
     }
 
     // componentDidMount() {
@@ -18,13 +19,13 @@ class NumberOfEvents extends Component {
         const inputValue = event.target.value;
         if(inputValue < 0 || inputValue > 32) {
            this.setState({
-            infoText: 'Please select number from 1 to 32'
+            errorText: 'Please select number from 1 to 32'
            }) 
         } else {
             this.props.updateEvents(null, inputValue);
             this.setState({
                 noe: inputValue,
-                infoText: ''
+                errorText: ''
             })
         }
     };
@@ -33,6 +34,7 @@ class NumberOfEvents extends Component {
         const { noe } = this.state;
         return (
             <div className="NumberOfEvents">
+                <ErrorAlert text={this.state.errorText} />
                 <h3>Number of Events:</h3>
                 <input
                 className="noe-input"
