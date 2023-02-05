@@ -5,7 +5,7 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import WelcomeScreen from './WelcomeScreen';
 import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
-//import { OfflineAlert } from './Alert';
+import { OfflineAlert } from './Alert';
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
@@ -120,7 +120,7 @@ class App extends Component {
       <div className='App'>
         <h1>Meet App</h1>
         <h4>Choose your nearest City</h4>
-        {/* <div className='OfflineAlert'>
+        <div className='OfflineAlert'>
           {!navigator.online && (
             <OfflineAlert 
             text = {
@@ -128,7 +128,7 @@ class App extends Component {
             }
             />
           ) }
-        </div> */}
+        </div>
        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
        <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
 
