@@ -18,6 +18,7 @@ class App extends Component {
     numberOfEvents: 32,
     selectedLocation: 'all',
     eventCount: 32,
+    infoText: '',
     showWelcomeScreen: undefined
   }
 
@@ -115,12 +116,16 @@ class App extends Component {
   };
   
   render() {
+    const offlineMessage = navigator.online
+  ? ""
+  : "You are currently Offline. The list of events may not be up to date";
+
     if (this.state.showWelcomeScreen === undefined) return <div className="App" />
     return (
       <div className='App'>
         <h1>Meet App</h1>
         <h4>Choose your nearest City</h4>
-        <div className='OfflineAlert'>
+        {/* <div className='OfflineAlert'>
           {!navigator.online && (
             <OfflineAlert 
             text = {
@@ -128,7 +133,8 @@ class App extends Component {
             }
             />
           ) }
-        </div>
+        </div> */}
+       <OfflineAlert message={offlineMessage}/>
        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
        <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
 
@@ -151,7 +157,7 @@ class App extends Component {
        <EventList events={this.state.events}/>
       
 
-      <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
+     <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
 
       </div>
     );
