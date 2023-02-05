@@ -37,8 +37,8 @@ const mockData = [
          "useDefault": true
         },
         "eventType": "default"
-       },
-       {
+    },
+    {
         "kind": "calendar#event",
         "etag": "\"3181159875584000\"",
         "id": "3qtd6uscq4tsi6gc7nmmtpqlct_20200520T120000Z",
@@ -76,7 +76,7 @@ const mockData = [
          "useDefault": true
         },
         "eventType": "default"
-       },
+    }
 ]
 
 JSON.parse(JSON.stringify(mockData));
