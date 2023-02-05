@@ -6,6 +6,7 @@ import NumberOfEvents from './NumberOfEvents';
 import WelcomeScreen from './WelcomeScreen';
 import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
 import { OfflineAlert } from './Alert';
+import EventGenre from './EventGenre';
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
@@ -21,38 +22,6 @@ class App extends Component {
     infoText: '',
     showWelcomeScreen: undefined
   }
-
-  // to make the API call and save the initial data to state
-  // async componentDidMount() {
-  //   this.mounted = true;
-  //   getEvents().then((events) => {
-  //     if (this.mounted) {
-  //       events = events.slice(0, this.state.eventCount);
-  //       this.setState({
-  //         events, locations : extractLocations(events)
-  //       });
-  //     }
-  //   });
-  // }
-  // async componentDidMount() {
-  //   this.mounted = true;
-
-  //   const accessToken = localStorage.getItem('access_token');
-  //   const isTokenValid = (await checkToken(accessToken)).error ? false : true;
-  //   const searchParams = new URLSearchParams(window.location.search);
-  //   const code = searchParams.get('code');
-  //   const isLocal = window.location.href.startsWith('http://localhost')
-  //     ? true
-  //     : code || isTokenValid;
-  //   this.setState({ showWelcomeScreen: !isLocal });
-  //   if (isLocal && this.mounted) {
-  //     getEvents().then((events) => {
-  //       if (this.mounted) {
-  //         this.setState({ events, locations: extractLocations(events) });
-  //       }
-  //     });
-  //   }
-  // }
 
   async componentDidMount() {
     this.mounted = true;
@@ -125,21 +94,15 @@ class App extends Component {
       <div className='App'>
         <h1>Meet App</h1>
         <h4>Choose your nearest City</h4>
-        {/* <div className='OfflineAlert'>
-          {!navigator.online && (
-            <OfflineAlert 
-            text = {
-              'You are currently offline.The list of events may not be up to date '
-            }
-            />
-          ) }
-        </div> */}
+
        <OfflineAlert message={offlineMessage}/>
        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
        <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
 
        <h4>Events in each city</h4>
 
+       <div className='data-vis-wrapper'>
+        <EventGenre events={this.state.events} />
        <ResponsiveContainer height={400}>
        <ScatterChart
           margin={{
@@ -153,6 +116,7 @@ class App extends Component {
           <Scatter data={this.getData()} fill="#8884d8" />
         </ScatterChart>
        </ResponsiveContainer>
+       </div>
 
        <EventList events={this.state.events}/>
       
